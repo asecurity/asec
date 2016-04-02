@@ -1,0 +1,11 @@
+<!-- Custom decoder for PaloAlto Firewalls Events -->
+<decoder name="PaloAlto-ASec">
+	<prematch>^\s\p \d,\d\d\d\d/\d\d/\d\d \d\d:\d\d:\d\d,\w\w\w\w\w\w\w\w\w\w\w+</prematch>
+</decoder>
+
+<decoder name="PaloAlto-Threat">
+	<parent>PaloAlto-ASec</parent>
+	<prematch offset="after_parent">^THREAT,</prematch>
+	<regex offset="after_parent">^(THREAT,\w+),\.*,\.*,(\d+.\d+.\d+.\d+),(\d+.\d+.\d+.\d+),\d+.\d+.\d+.\d+,\d+.\d+.\d+.\d+,\w+,(\w*\\*\w*),(\w*\\*\w*),\.*,\w*,\w*,\w*,\w*,\w*,\d*,\w*,(\w*),(\w*),\p*,\.*,\w*,(\w*),\.*$</regex>
+	<order>id,srcip,dstip,srcuser,dstuser,protocol,action,status</order>
+</decoder>

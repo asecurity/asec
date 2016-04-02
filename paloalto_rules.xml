@@ -1,0 +1,106 @@
+<!-- @(#) $Id: ./etc/rules/local_rules.xml, 2011/09/08 dcid Exp $
+
+  -  Example of local rules for OSSEC.
+  -
+  -  Copyright (C) 2009 Trend Micro Inc.
+  -  All rights reserved.
+  -
+  -  This program is a free software; you can redistribute it
+  -  and/or modify it under the terms of the GNU General Public
+  -  License (version 2) as published by the FSF - Free Software
+  -  Foundation.
+  -
+  -  License details: http://www.ossec.net/en/licensing.html
+  -->
+
+
+<!-- Modify it at your will. -->
+
+<group name="local,syslog,">
+
+  <!-- Note that rule id 5711 is defined at the ssh_rules file
+    -  as a ssh failed login. This is just an example
+    -  since ip 1.1.1.1 shouldn't be used anywhere.
+    -  Level 0 means ignore.
+    -->
+  <rule id="100001" level="0">
+    <if_sid>5711</if_sid>
+    <srcip>1.1.1.1</srcip>
+    <description>Example of rule that will ignore sshd </description>
+    <description>failed logins from IP 1.1.1.1.</description>
+  </rule>
+
+<rule id="100006" level="0">
+    <if_sid>18107,18149</if_sid>
+    <description>Windows Logon Activity</description>
+</rule>
+
+<rule id="100007" level="0">
+    <if_sid>18105,18108</if_sid>
+    <description>Failed Privilege Request</description>
+</rule>
+
+<rule id="100009" level="0">
+    <if_sid>1009</if_sid>
+    <description>Multicast</description>
+</rule>
+
+  <!-- This example will ignore ssh failed logins for the user name XYZABC.
+    -->
+  <!--  
+  <rule id="100020" level="0">
+    <if_sid>5711</if_sid>
+    <user>XYZABC</user>
+    <description>Example of rule that will ignore sshd </description>
+    <description>failed logins for user XYZABC.</description>
+  </rule>
+  -->
+  <!-- Specify here a list of rules to ignore. -->
+  <!--
+  <rule id="100030" level="0">
+    <if_sid>12345, 23456, xyz, abc</if_sid>
+    <description>List of rules to be ignored.</description>
+  </rule>
+  -->
+   
+</group> <!-- SYSLOG,LOCAL -->
+
+<group name="PaloAlto-ASec">
+	<rule id="700000" level="0">
+		<decoded_as>PaloAlto-ASec</decoded_as>
+		<description>PaloAlto Firewall Event</description>
+	</rule>
+
+	<rule id="700001" level="12">
+		<if_sid>700000</if_sid>
+		<status>critical</status>
+		<description>Critical threat event!</description>
+	</rule>
+
+ 	<rule id="700002" level="12">
+		<if_sid>700000</if_sid>
+		<status>high</status>
+		<description>High threat event!</description>
+	</rule>
+
+	<rule id="700003" level="8">
+		<if_sid>700000</if_sid>
+		<status>medium</status>
+		<description>Medium threat event!</description>
+	</rule>
+
+	<rule id="700004" level="8">
+		<if_sid>700000</if_sid>
+		<status>low</status>
+		<description>Low threat event!</description>
+	</rule>
+
+	<rule id="700005" level="5">
+		<if_sid>700000</if_sid>
+		<status>informational</status>
+		<description>Informational threat event!</description>
+	</rule>
+</group>
+
+
+<!-- EOF -->
